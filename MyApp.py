@@ -1,26 +1,31 @@
 # Create an Interactive Data Analytics Portal with Streamlit in 7 Steps
-
+## 1 Importing Libraries:
 import pandas as pd 
 import plotly.express as px
 import streamlit as st   
 
+## 2 Site Icone and Web name:
 st.set_page_config(
-    page_title='Consoleflare Analytics Portal',
+    page_title='CSM Analytics Portal',
     page_icon='📊'
 )
 
+## 3 Page Heading and sub-heading:
 st.title(':rainbow[Data Analytics Portal]')
 st.subheader(':gray[Explore Data with ease.]',divider='rainbow')
 
+## 4 File uploader initialized:
 file = st.file_uploader('Drop csv or excel file', type=['csv', 'xlsx'])
 if file:
     if file.name.endswith('csv'):
         data = pd.read_csv(file)
     else:
         data = pd.read_excel(file)
+   
+
     st.dataframe(data)
     st.info('File is successfully Uploaded', icon='🚨')
-
+## 5 Section of Basic Info:
     st.subheader(':rainbow[Basic information of the dataset]',divider='rainbow')
     tab1, tab2, tab3, tab4 = st.tabs(['Summary', 'Top and Bottom Rows', 'Data Types', 'Columns'])
 
@@ -42,7 +47,7 @@ if file:
         st.subheader('Column Names in Dataset')
         st.write(list(data.columns))
     
-
+## 6 Count section:
     st.subheader(':rainbow[Column Values To Count]',divider='rainbow')
     with st.expander('Value Count'):
         col1, col2 = st.columns(2)
@@ -62,7 +67,7 @@ if file:
             st.plotly_chart(fig)
             fig = px.pie(data_frame=result, names=column, values='count')
             st.plotly_chart(fig)
-
+## 7 Group By:           
     st.subheader(':rainbow[Groupby : Simplify your data analysis]', divider='rainbow')
     st.write('The groupby lets you summarize data by specific categories and groups')
     with st.expander('Group By your columns'):
@@ -112,4 +117,3 @@ if file:
                 path = st.multiselect('Choose your Path', options=list(result.columns))
                 fig = px.sunburst(data_frame=result, path=path, values='newcol')
                 st.plotly_chart(fig)
-                
