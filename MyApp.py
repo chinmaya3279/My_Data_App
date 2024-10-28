@@ -8,3 +8,6 @@ st.set_page_config(
     page_title='Consoleflare Analytics Portal',
     page_icon='📊'
 )
+
+st.title(':rainbow[Data Analytics Portal]')
+st.subheader(':gray[Explore Data with ease.]',divider='rainbow')
